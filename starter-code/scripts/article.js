@@ -38,6 +38,7 @@ Article.prototype.toHtml = function(){
    as it now has real data attached to it! We need to account
    for that and change it before this current article gets
    rendered to our DOM. */
+  $newArticle.removeAttr('class');
   return $newArticle;
 };
 
