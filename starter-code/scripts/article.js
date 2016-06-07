@@ -3,15 +3,24 @@ var articles = [];
 function Article (opts) {
   // TODO: Use the object passed in to complete this contructor function:
   // Save ALL the properties of `opts` into `this`.
+  //DONE------------------------------------------->
   this.author = opts.author;
+  this.title = opts.title;
+  this.category = opts.category;
+  this.authorUrl = opts.authorUrl;
+  this.publishedOn = opts.publishedOn;
+  this.body = opts.body;
 }
 
 // Define a method on the Article prototype
 article.prototype.toHtml = function(){
   var $newArticle = $('article.template').clone(); //ONLY articles with the class of template will be selected. If there were a space between the article and .template, it would select article and it's siblings.
   $newArticle.attr('data-category', this.category);
-
-
+  $newArticle.find('time[pubdate]').attr('title', this.publishedOn);
+  $newArticle.find('title').attr('title', this.title);
+  $newArticle.find('a').html(this.author);
+  $newArticle.find('time[pubdate]').attr('title', this.publishedOn);
+  $newArticle.find('article-body').html(this.body);
 
   /* TODO: Now use jQuery to fill in the rest of the current
   template clone with properties from this particular Article instance.
@@ -23,8 +32,8 @@ article.prototype.toHtml = function(){
    5. publication date. */
 
   // Display the date as a relative number of "days ago":
-  newArticle.find('time[pubdate]').attr('title', this.publishedOn);
-  newArticle.find('time').html('about' + parseInt((new Date() - new Date (this.publishedOn)) /60/60/24/1000) + ' days ago');
+  $newArticle.find('time[pubdate]').attr('title', this.publishedOn);
+  $newArticle.find('time').html('about' + parseInt((new Date() - new Date (this.publishedOn)) /60/60/24/1000) + ' days ago');
 
   /* TODO: This cloned article is no longer a template,
    as it now has real data attached to it! We need to account
