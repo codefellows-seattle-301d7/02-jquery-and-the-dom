@@ -13,14 +13,12 @@ function Article (opts) {
 }
 
 // Define a method on the Article prototype
-article.prototype.toHtml = function(){
+Article.prototype.toHtml = function(){
   var $newArticle = $('article.template').clone(); //ONLY articles with the class of template will be selected. If there were a space between the article and .template, it would select article and it's siblings.
   $newArticle.attr('data-category', this.category);
-  $newArticle.find('time[pubdate]').attr('title', this.publishedOn);
-  $newArticle.find('title').attr('title', this.title);
+  $newArticle.find('h1').html(this.title);
   $newArticle.find('a').html(this.author);
-  $newArticle.find('time[pubdate]').attr('title', this.publishedOn);
-  $newArticle.find('article-body').html(this.body);
+  $newArticle.find('.article-body').html(this.body);
 
   /* TODO: Now use jQuery to fill in the rest of the current
   template clone with properties from this particular Article instance.
@@ -39,6 +37,7 @@ article.prototype.toHtml = function(){
    as it now has real data attached to it! We need to account
    for that and change it before this current article gets
    rendered to our DOM. */
+  $newArticle.removeClass('template');
   return $newArticle;
 };
 
@@ -50,11 +49,13 @@ ourLocalData.sort(function(a, b) {
  a new Article instance for each object in our collection. */
 
 ourLocalData.forEach(function(ele) {  /*forEach runs through every element with no breakout like a for loop*/
-  articles.push(newArticle(ele));
+  articles.push(new Article(ele));
+  console.log('test');
 });
 
 /* Append each Article to the DOM.
 NOTE: Remember that the '.toHtml' method invoked is one WE created. */
 articles.forEach(function(article) {
-  $('#articles').append(article.toHtml);
+  $('#articles').append(article.toHtml());
+  // console.log(articles);
 });
