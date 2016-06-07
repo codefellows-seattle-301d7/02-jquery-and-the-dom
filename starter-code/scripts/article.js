@@ -32,7 +32,7 @@ Article.prototype.toHtml = function(){
 
   // Display the date as a relative number of "days ago":
   $newArticle.find('time[pubdate]').attr('title', this.publishedOn);
-  $newArticle.find('time').html('about' + parseInt((new Date() - new Date(this.publishedOn))/60/60/24/1000) + ' days ago');
+  $newArticle.find('time').html('about ' + parseInt((new Date() - new Date(this.publishedOn))/60/60/24/1000) + ' days ago');
 
   /* TODO: This cloned article is no longer a template,
    as it now has real data attached to it! We need to account
